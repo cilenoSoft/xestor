@@ -1,5 +1,9 @@
 <?php
 session_start();
+
+include 'comprobaSesionIniciada.php';
+comprobaSesion();
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -30,7 +34,7 @@ session_start();
 
         <?php
         $login = $_SESSION['login'];
-        echo '<h1>' . strtoupper($login) . '</h1>';
+        echo '<h1>'.strtoupper($login).'</h1>';
         ?>
 
         <table class="steelBlueCols">
@@ -52,7 +56,7 @@ session_start();
 
         </table>
         <p></p>
-        <a class = "enlace" href="formularioCambiaPass.php">Cambiar Contraseña</a>
+        <a class = "enlace" href="formularioCambiaPass.php">Mudar Contrasinal</a>
         <p></p>
         <img src='../../imgUsuarios/diego'  width="200" />  
         <p></p>

@@ -1,5 +1,9 @@
 <?php
 session_start();
+
+include 'comprobaSesionIniciada.php';
+comprobaSesion();
+
 ?>
 <!DOCTYPE html>
 <html>
