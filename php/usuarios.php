@@ -2,36 +2,40 @@
 
 include 'conexion.php';
 
-function compruebaContrasena($pass, $passBD, $user) {
+function compruebaContrasena($pass, $passBD, $user, $idEquipo)
+{
     if (password_verify(
                     base64_encode(
                             hash('sha256', $pass, true)
                     ), $passBD
             )) {
-        logearUsuario($user);
+        logearUsuario($user, $idEquipo);
         header('Location: paginaUsuario_1.php');
     } else {
         header('Location: logueo.php');
     }
 }
 
-function obtenerEmail($pass, $passBD, $user) {
+function obtenerEmail($pass, $passBD, $user, $idEquipo)
+{
     if (password_verify(
                     base64_encode(
                             hash('sha256', $pass, true)
                     ), $passBD
             )) {
-        logearUsuario($user);
+        logearUsuario($user, $idEquipo);
         header('Location: paginaUsuario_1.php');
     } else {
         header('Location: logueo.php');
     }
 }
 
-function logearUsuario($user) {
+function logearUsuario($user, $idEquipo)
+{
     session_start();
     session_regenerate_id();
     $_SESSION['login'] = $user;
+    $_SESSION['equipo'] = $idEquipo;
 }
 
 try {
@@ -42,7 +46,7 @@ try {
 
     $conexion = conexion();
 
-    $consulta = "SELECT pass FROM usuarios where login like '$login'";
+    $consulta = "SELECT * FROM usuarios where login like '$login'";
 
     $resultado = $conexion->query($consulta);
 
@@ -53,11 +57,12 @@ try {
 
         foreach ($datos as $fila) {
             $passBD = $fila['pass'];
-            compruebaContrasena($pass, $passBD, $login);
+            $equipo = $fila['idEquipo'];
+            compruebaContrasena($pass, $passBD, $login, $equipo);
         }
     }
 } catch (PDOException $e) {
-    echo 'Error conectando coa base de datos: ' . $e->getMessage();
+    echo 'Error conectando coa base de datos: '.$e->getMessage();
 }
 ?>
 

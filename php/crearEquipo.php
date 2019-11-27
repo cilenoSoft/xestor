@@ -3,7 +3,7 @@
 session_start();
 include 'conexion.php';
 
-function creaTarefaUsuario($login, $titulo, $descripcion, $usuarioAsignado)
+function creaEquipoUsuario($login, $nombre, $usuarioAsignado)
 {
     try {
         $conexion = conexion();
@@ -11,26 +11,23 @@ function creaTarefaUsuario($login, $titulo, $descripcion, $usuarioAsignado)
         $consulta = "SELECT id FROM usuarios where login like '$login'";
         $resultado = $conexion->query($consulta);
         $idUsuario = $resultado->fetch()[0];
-        date_default_timezone_set('Europe/Madrid');
-        $fecha = 'Y-m-d H:i:s';
-        $fechaActual = date($fecha);
-        $consulta = "INSERT INTO tarefas (`titulo`, `usuarioCreador`,`fechaCreacion`,`descripcion`) VALUES ('$titulo', '$idUsuario','$fechaActual','$descripcion')";
+
+        $consulta = "INSERT INTO equipos (`nombre`,`usuarioXestor`) VALUES ('$nombre','$idUsuario')";
         $resultado = $conexion->query($consulta);
 
         if ($usuarioAsignado != null && $usuarioAsignado != '') {
-            $consulta = "SELECT idTarefa FROM tarefas where titulo like '$titulo' AND usuarioCreador LIKE '$idUsuario' AND fechaCreacion = '$fechaActual'";
-
+            $consulta = "SELECT idEquipo FROM equipos where nombre like '$nombre'";
             $resultado = $conexion->query($consulta);
-            $idTarefa = $resultado->fetch()[0];
+            $idEquipo = $resultado->fetch()[0];
 
             $consulta = "SELECT id FROM usuarios where login like '$usuarioAsignado'";
             $resultado = $conexion->query($consulta);
             $idUsuario = $resultado->fetch()[0];
 
-            $consulta = "INSERT INTO tarefas_asignadas (`idTarefa`, `idUsuario`) VALUES ('$idTarefa', '$idUsuario')";
+            $consulta = "INSERT INTO usuarios_equipo (`idEquipo`, `idUsuario`) VALUES ('$idEquipo', '$idUsuario')";
             $resultado = $conexion->query($consulta);
 
-            echo '<p>Tarefa '.$titulo.' creada correctamente.</p>';
+            echo '<p>Equipo '.$nombre.' creado correctamente.</p>';
             header('Refresh: 3; URL=paginaUsuario_1.php');
         }
     } catch (PDOException $e) {
@@ -54,7 +51,7 @@ function obtenTarefasUsuarioAutorizado($usuario)
         $resultado = $conexion->query($consulta);
 
         if ($resultado->rowCount() == 0) {
-            echo 'Non se atoparon tarefas.';
+            echo 'Non se encontraron tarefas.';
         } else {
             $datos = $resultado->fetchAll(PDO::FETCH_ASSOC);
 
@@ -78,7 +75,6 @@ function obtenTarefasUsuarioAutorizado($usuario)
 }
 
 $login = $_SESSION['login'];
-$titulo = $_POST['titulo'];
-$descripcion = $_POST['descripcion'];
+$nombre = $_POST['nombre'];
 $usuarioAsignado = $_POST['usuario'];
-creaTarefaUsuario($login, $titulo, $descripcion, $usuarioAsignado);
+creaEquipoUsuario($login, $nombre, $usuarioAsignado);
