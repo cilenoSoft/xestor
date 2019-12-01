@@ -2,40 +2,41 @@
 
 include 'conexion.php';
 
-function compruebaContrasena($pass, $passBD, $user, $idEquipo)
+function compruebaContrasena($pass, $passBD, $user, $idEquipo, $idUsuario)
 {
     if (password_verify(
                     base64_encode(
                             hash('sha256', $pass, true)
                     ), $passBD
             )) {
-        logearUsuario($user, $idEquipo);
+        logearUsuario($user, $idEquipo, $idUsuario);
         header('Location: paginaUsuario_1.php');
     } else {
         header('Location: logueo.php');
     }
 }
 
-function obtenerEmail($pass, $passBD, $user, $idEquipo)
+function obtenerEmail($pass, $passBD, $user, $idEquipo, $idUsuario)
 {
     if (password_verify(
                     base64_encode(
                             hash('sha256', $pass, true)
                     ), $passBD
             )) {
-        logearUsuario($user, $idEquipo);
+        logearUsuario($user, $idEquipo, $idUsuario);
         header('Location: paginaUsuario_1.php');
     } else {
         header('Location: logueo.php');
     }
 }
 
-function logearUsuario($user, $idEquipo)
+function logearUsuario($user, $idEquipo, $idUsuario)
 {
     session_start();
     session_regenerate_id();
     $_SESSION['login'] = $user;
     $_SESSION['equipo'] = $idEquipo;
+    $_SESSION['idUsuario'] = $idUsuario;
 }
 
 try {
@@ -58,7 +59,8 @@ try {
         foreach ($datos as $fila) {
             $passBD = $fila['pass'];
             $equipo = $fila['idEquipo'];
-            compruebaContrasena($pass, $passBD, $login, $equipo);
+            $idUsuario = $fila['id'];
+            compruebaContrasena($pass, $passBD, $login, $equipo, $idUsuario);
         }
     }
 } catch (PDOException $e) {

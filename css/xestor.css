@@ -147,3 +147,11 @@ table.steelBlueCols tfoot .links a {
     text-decoration: underline;
     color: blue;
 }
+
+
+/* TAREFAS */
+
+.etiqueta {
+    color: black !important;
+    size: 10px;
+}

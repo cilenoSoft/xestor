@@ -3,8 +3,7 @@
 session_start();
 include 'conexion.php';
 
-function creaTarefaUsuario($login, $titulo, $descripcion, $usuarioAsignado)
-{
+function creaTarefaUsuario($login, $titulo, $descripcion, $usuarioAsignado) {
     try {
         $conexion = conexion();
 
@@ -30,50 +29,11 @@ function creaTarefaUsuario($login, $titulo, $descripcion, $usuarioAsignado)
             $consulta = "INSERT INTO tarefas_asignadas (`idTarefa`, `idUsuario`) VALUES ('$idTarefa', '$idUsuario')";
             $resultado = $conexion->query($consulta);
 
-            echo '<p>Tarefa '.$titulo.' creada correctamente.</p>';
+            echo '<p>Tarefa ' . $titulo . ' creada correctamente.</p>';
             header('Refresh: 3; URL=paginaUsuario_1.php');
         }
     } catch (PDOException $e) {
-        echo 'Error conectando coa base de datos: '.$e->getMessage();
-    }
-}
-
-function obtenTarefasUsuarioAutorizado($usuario)
-{
-    try {
-        $conexion = conexion();
-
-        $consulta = "SELECT id FROM usuarios where email like '$usuario'";
-
-        $resultado = $conexion->query($consulta);
-
-        $idUsuario = $resultado->fetch()[0];
-
-        $consulta = "SELECT idTarea FROM tarefas_asignadas WHERE idUsuario like '$idUsuario'";
-
-        $resultado = $conexion->query($consulta);
-
-        if ($resultado->rowCount() == 0) {
-            echo 'Non se atoparon tarefas.';
-        } else {
-            $datos = $resultado->fetchAll(PDO::FETCH_ASSOC);
-
-            foreach ($datos as $fila) {
-                $consulta = "SELECT * FROM tarefas WHERE idTarefa like '".$fila['idTarea']."'";
-
-                $resultado2 = $conexion->query($consulta);
-
-                $datos2 = $resultado2->fetchAll(PDO::FETCH_ASSOC);
-
-                foreach ($datos2 as $fila2) {
-                    echo '<h2>'.$fila2['titulo'].'</h2>';
-                    echo '<p>'.$fila2['descripcion'].'<p>';
-                    echo "<div class='line'></div>";
-                }
-            }
-        }
-    } catch (PDOException $e) {
-        echo 'Error conectando coa base de datos: '.$e->getMessage();
+        echo 'Error conectando coa base de datos: ' . $e->getMessage();
     }
 }
 

@@ -14,10 +14,9 @@ comprobaSesion();
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
         <title>XestorGal</title>
-
         <!-- Bootstrap CSS CDN -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-        <!-- CSS -->
+        <!-- Custom CSS -->
         <link rel="stylesheet" type="text/css" href="../css/xestor.css">
         <link type="text/css" rel="stylesheet" href="../css/style4.css" >
         <!-- Font Awesome JS -->
@@ -31,45 +30,14 @@ comprobaSesion();
         <?php
         include '../html/navBar.html';
         ?>
+        <h1>Tarefas Finalizadas:</h1>
+</br>
 
         <?php
+        include 'obtenTarefas.php';
         $login = $_SESSION['login'];
-        echo '<h1>'.strtoupper($login).'</h1>';
+        obtenTarefasFinalizadas($login);
         ?>
-
-        <table class="steelBlueCols">
-            <tr>
-                <td>Login</td> 
-                <td><?php echo $login; ?></td>      
-            </tr>
-
-            <tr>
-                <td>Email</td>
-                <td>                    
-                    <?php
-                    include 'datosUsuario.php';
-                    $email = obtenerEmail($_SESSION['login']);
-                    echo $email;
-                    ?>
-                </td>
-            </tr>
-
-        </table>
-        <p></p>
-        <a class = "enlace" href="formularioCambiaPass.php">Mudar Contrasinal</a>
-        <p></p>
-        <img src='../../imgUsuarios/diego'  width="200" />  
-        <p></p>
-
-        <form action='cargar.php' method='post' enctype='multipart/form-data'>
-
-            <p class="p_cambiarImg">Elixa unha imaxe para mudar a foto de perfil:</p>
-            <input type='file' name='file' />
-            <p></p>
-            <input type='submit' name='submit' value='Enviar' />
-
-        </form>
-        <p></p>
 
     </div>
 </div>

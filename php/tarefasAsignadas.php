@@ -30,8 +30,8 @@ comprobaSesion();
         <?php
         include '../html/navBar.html';
         ?>
-        <h1>Tarefas</h1>
-
+        <h1>Tarefas Asignadas:</h1>
+</br>
 
         <?php
         include 'obtenTarefas.php';

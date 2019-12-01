@@ -21,17 +21,11 @@ comprobaSesion();
         <!-- Font Awesome JS -->
         <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
         <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
-        <!-- JS -->
-        <script type="text/javascript" src="../js/miJs.js"></script>
 
         <!-- jQuery CDN - Slim version (=without AJAX) -->
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
                 integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
         </script>
-
-        <!-- jQuery AJAX -->
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-
         <!-- Popper.JS -->
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
                 integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous">
@@ -48,41 +42,66 @@ comprobaSesion();
         <?php
         include '../html/navBar.html';
         ?>
+
         <div>
             <div class="row">
                 <div class="col-sm-6 col-md-4">
-                    <h1>Crear Equipo</h1>
+                    <h1>Crear Tarefa</h1>
                 </div>
             </div>
         </div>
 
-        <form role="form" id="equipo-form" action="crearEquipo.php" method="POST">
-
+        <form role="form" id="tarefa-form" action="creaTarefas.php" method="POST">       
             <div class="form-body">
                 <div class="row">
                     <div class="form-group col-sm-6 col-md-4">
-                        <label for="nombreEquipo">Nombre</label>
-                        <input id="nombreEquipo" name="nombreEquipo" type="text" class="form-control">
+                        <label for="exampleFormControlTextarea1">Titulo</label>
+                        <input name="titulo" type="text" class="form-control">
                         <span class="help-block" id="error"></span>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="form-group col-sm-6 col-md-4">
-                        <label for="EngadirMembros">Numero de membros</label>
-                        <input id="numMembros" name="numeroMembros" type="text" class="form-control">
+                        <label for="exampleFormControlTextarea1">Asignar a usuario</label>
+
+                        <select name="usuario" class="form-control">
+
+                            <?php
+                            include 'conexion.php';
+                            $conexion = conexion();
+                            $equipo = $_SESSION['equipo'];
+                            $consulta = "SELECT * FROM usuarios where idEquipo like '$equipo'";
+                            $resultado = $conexion->query($consulta);
+
+                            if ($resultado->rowCount() == 0) {
+                                echo 'No se ha encontrado usuarios';
+                            } else {
+                                $datos = $resultado->fetchAll(PDO::FETCH_ASSOC);
+
+                                foreach ($datos as $fila) {
+                                    $usuario = $fila['login'];
+                                    echo "<option>$usuario</option>";
+                                }
+                            }
+                            ?>
+                        </select>
+
                         <span class="help-block" id="error"></span>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class='form-group col-sm-6 col-md-4' id= 'selectUsuarios'>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="form-group col-sm-6 col-md-4">
-                        <button type="submit" id = "botonCrearEquipo" class="btn btn-info" disabled>
-                            <span class="glyphicon glyphicon-log-in"></span> Crear Equipo
+                        <label for="exampleFormControlTextarea1">Descripción</label>
+                        <textarea name='descripcion' class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-footer col-sm-6 col-md-4">
+                        <button type="submit" class="btn btn-info">
+                            <span class="glyphicon glyphicon-log-in"></span> Crear Tarefa
                         </button>
                     </div>
                 </div>
@@ -90,11 +109,12 @@ comprobaSesion();
         </form>
 
         <script type="text/javascript">
-
-            $(document).ready(creaSelect());
-
+            $(document).ready(function () {
+                $('#sidebarCollapse').on('click', function () {
+                    $('#sidebar').toggleClass('active');
+                });
+            });
         </script>
-
     </body>
 
 </html>
