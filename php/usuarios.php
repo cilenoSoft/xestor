@@ -10,7 +10,7 @@ function compruebaContrasena($pass, $passBD, $user, $idEquipo, $idUsuario)
                     ), $passBD
             )) {
         logearUsuario($user, $idEquipo, $idUsuario);
-        header('Location: paginaUsuario_1.php');
+        header('Location: tarefasAsignadas.php');
     } else {
         header('Location: logueo.php');
     }
@@ -24,7 +24,7 @@ function obtenerEmail($pass, $passBD, $user, $idEquipo, $idUsuario)
                     ), $passBD
             )) {
         logearUsuario($user, $idEquipo, $idUsuario);
-        header('Location: paginaUsuario_1.php');
+        header('Location: tarefasAsignadas.php');
     } else {
         header('Location: logueo.php');
     }

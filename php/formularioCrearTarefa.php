@@ -45,7 +45,7 @@ comprobaSesion();
 
         <div>
             <div class="row">
-                <div class="col-sm-6 col-md-4">
+                <div class="col-lg-5">
                     <h1>Crear Tarefa</h1>
                 </div>
             </div>
@@ -54,7 +54,7 @@ comprobaSesion();
         <form role="form" id="tarefa-form" action="creaTarefas.php" method="POST">       
             <div class="form-body">
                 <div class="row">
-                    <div class="form-group col-sm-6 col-md-4">
+                    <div class="form-group col-lg-5">
                         <label for="exampleFormControlTextarea1">Titulo</label>
                         <input name="titulo" type="text" class="form-control">
                         <span class="help-block" id="error"></span>
@@ -62,8 +62,8 @@ comprobaSesion();
                 </div>
 
                 <div class="row">
-                    <div class="form-group col-sm-6 col-md-4">
-                        <label for="exampleFormControlTextarea1">Asignar a usuario</label>
+                    <div class="form-group col-lg-5">
+                        <label for="selectUsuarios">Asignar a usuario</label>
 
                         <select name="usuario" class="form-control">
 
@@ -92,14 +92,14 @@ comprobaSesion();
                 </div>
 
                 <div class="row">
-                    <div class="form-group col-sm-6 col-md-4">
+                    <div class="form-group col-lg-5">
                         <label for="exampleFormControlTextarea1">Descripción</label>
                         <textarea name='descripcion' class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                     </div>
                 </div>
 
                 <div class="row">
-                    <div class="form-footer col-sm-6 col-md-4">
+                    <div class="form-footer col-lg-5">
                         <button type="submit" class="btn btn-info">
                             <span class="glyphicon glyphicon-log-in"></span> Crear Tarefa
                         </button>

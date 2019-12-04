@@ -55,6 +55,20 @@
                                 <span class="help-block" id="error"></span>
                             </div>
                         </div>
+                        </div>
+                        <div class="row">
+                    <div class="form-group col-sm-6 col-md-4">
+                        <label for="selectUsuarios">Tipo de perfil:</label>
+
+                        <select name="usuario" class="form-control">
+                                    <option value="USER">USER</option>
+                                    <option value="MASTER">MASTER</option>
+                        </select>
+
+                        <span class="help-block" id="error"></span>
+                    </div>
+                
+
                     </div>
 
                     <div class="control-group">

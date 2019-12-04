@@ -50,7 +50,7 @@ comprobaSesion();
         ?>
         <div>
             <div class="row">
-                <div class="col-sm-6 col-md-4">
+                <div class="col-lg-6">
                     <h1>Crear Equipo</h1>
                 </div>
             </div>
@@ -60,7 +60,7 @@ comprobaSesion();
 
             <div class="form-body">
                 <div class="row">
-                    <div class="form-group col-sm-6 col-md-4">
+                    <div class="form-group col-lg-6">
                         <label for="nombreEquipo">Nombre</label>
                         <input id="nombreEquipo" name="nombreEquipo" type="text" class="form-control">
                         <span class="help-block" id="error"></span>
@@ -68,19 +68,19 @@ comprobaSesion();
                 </div>
 
                 <div class="row">
-                    <div class="form-group col-sm-6 col-md-4">
+                    <div class="form-group col-lg-6">
                         <label for="EngadirMembros">Numero de membros</label>
                         <input id="numMembros" name="numeroMembros" type="text" class="form-control">
                         <span class="help-block" id="error"></span>
                     </div>
                 </div>
                 <div class="row">
-                    <div class='form-group col-sm-6 col-md-4' id= 'selectUsuarios'>
+                    <div class='form-group col-lg-6' id= 'selectUsuarios'>
                     </div>
                 </div>
 
                 <div class="row">
-                    <div class="form-group col-sm-6 col-md-4">
+                    <div class="form-group col-lg-6">
                         <button type="submit" id = "botonCrearEquipo" class="btn btn-info" disabled>
                             <span class="glyphicon glyphicon-log-in"></span> Crear Equipo
                         </button>

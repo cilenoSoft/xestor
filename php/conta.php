@@ -33,12 +33,12 @@ comprobaSesion();
 
         <?php
         $login = $_SESSION['login'];
-        echo '<h1>'.strtoupper($login).'</h1>';
+        echo '<h1>' . strtoupper($login) . '</h1>';
         ?>
-         <p></p>
+        <p></p>
         <div>
             <div class="row">
-                <div class="col-sm-6 col-md-4">
+                <div class="col-lg-6">
                     <table class="steelBlueCols">
                         <tr>
                             <td>Login</td> 
@@ -60,7 +60,7 @@ comprobaSesion();
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-6 col-md-4">
+                <div class="col-lg-6">
                     <a class ="enlace" href="formularioCambiaPass.php">Mudar Contrasinal</a>
                     <p></p>
                     <img src='../../imgUsuarios/diego'  width="200" />  
@@ -68,22 +68,29 @@ comprobaSesion();
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-sm-6 col-md-4">
-                    <form action='cargar.php' method='post' enctype='multipart/form-data'>
 
+            <form action='cargar.php' method='post' enctype='multipart/form-data'>
+                <div class="row">
+                    <div class="col-sm-6 col-md-4">
                         <p class="p_cambiarImg">Elixa unha imaxe para mudar a foto de perfil:</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 col-md-4">
                         <input type='file' class="btn btn-info" name='file' />
-                        <p></p>
-                        <input type='submit' class="btn btn-info" name='submit' value='Enviar' />
+                    </div>
+                </div>
+                <p></p>
+                <div class=row">
+                    <div class=""col-sm-6 col-md-4">
+                         <input type='submit' class="btn btn-info" name='submit' value='Enviar' />
                     </div>
                 </div>
 
-                    </form>
-                </div>
-            </div>
-            <p></p>
+            </form>
         </div>
+        <p></p>
+
 
 
         <!-- jQuery CDN - Slim version (=without AJAX) -->

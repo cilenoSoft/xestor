@@ -19,10 +19,10 @@
 
                 <form class="form-horizontal" id="formulario" action="reseteaContraseña.php" method="POST">
                     <div class="control-group">
-                        <h3>Introduce los datos para resetear la contraseña!</h3>
+                        <h3>Introduce os datos para resetear o contrasinal!</h3>
                         <label class="control-label" for="inputName">Login :</label>
                         <div class="controls">
-                            <input type="text" class="form-control" name="login" placeholder="Nombre">
+                            <input type="text" class="form-control" name="login" placeholder="Login">
                         </div>
                         <span class="help-block" id="error"></span>
                     </div>
