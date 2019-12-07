@@ -9,6 +9,7 @@ function creaTarefaUsuario($login, $titulo, $descripcion, $usuarioAsignado)
         $conexion = conexion();
 
         $consulta = "SELECT id FROM usuarios where LOGIN like '$login'";
+
         $resultado = $conexion->query($consulta);
         $idUsuario = $resultado->fetch()[0];
         date_default_timezone_set('Europe/Madrid');
