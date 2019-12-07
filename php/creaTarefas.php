@@ -1,44 +1,65 @@
 <?php
 
 session_start();
-include 'conexion.php';
+include 'funcions.php';
 
-function creaTarefaUsuario($login, $titulo, $descripcion, $usuarioAsignado) {
+function creaTarefaUsuario($login, $titulo, $descripcion, $usuarioAsignado)
+{
     try {
         $conexion = conexion();
 
-        $consulta = "SELECT id FROM usuarios where login like '$login'";
+        $consulta = "SELECT id FROM usuarios where LOGIN like '$login'";
         $resultado = $conexion->query($consulta);
         $idUsuario = $resultado->fetch()[0];
         date_default_timezone_set('Europe/Madrid');
         $fecha = 'Y-m-d H:i:s';
         $fechaActual = date($fecha);
-        $consulta = "INSERT INTO tarefas (`titulo`, `usuarioCreador`,`fechaCreacion`,`descripcion`) VALUES ('$titulo', '$idUsuario','$fechaActual','$descripcion')";
+        if ($usuarioAsignado != 'NA') {
+            $consulta = "INSERT INTO `tarefas` (`TITULO`, `DESCRIPCION`, `COMENTARIO`, `ESTADO`, `USUARIO_ULTIMO_ESTADO`, `USUARIO_CREADOR`,`FECHA_CREACION`, `FECHA_ULTIMA_MODIFICACION`, `FECHA_FINALIZACION`, `FECHA_ENTREGA`) VALUES ('$titulo', '$descripcion','','PENDIENTE', '$login', '$idUsuario','$fechaActual','$fechaActual',null,null)";
+        } else {
+            $consulta = "INSERT INTO `tarefas` (`TITULO`, `DESCRIPCION`, `COMENTARIO`, `ESTADO`, `USUARIO_ULTIMO_ESTADO`, `USUARIO_CREADOR`,`FECHA_CREACION`, `FECHA_ULTIMA_MODIFICACION`, `FECHA_FINALIZACION`, `FECHA_ENTREGA`) VALUES ('$titulo', '$descripcion','','SIN ASIGNAR', null, '$idUsuario','$fechaActual','$fechaActual',null,null)";
+        }
         $resultado = $conexion->query($consulta);
 
-        if ($usuarioAsignado != null && $usuarioAsignado != '') {
-            $consulta = "SELECT idTarefa FROM tarefas where titulo like '$titulo' AND usuarioCreador LIKE '$idUsuario' AND fechaCreacion = '$fechaActual'";
+        if ($usuarioAsignado != null && $usuarioAsignado != '' && $usuarioAsignado != 'NA') {
+            $consulta = "SELECT ID FROM TAREFAS where TITULO like '$titulo' AND USUARIO_CREADOR LIKE '$idUsuario' AND FECHA_CREACION = '$fechaActual'";
 
             $resultado = $conexion->query($consulta);
             $idTarefa = $resultado->fetch()[0];
 
-            $consulta = "SELECT id FROM usuarios where login like '$usuarioAsignado'";
+            $consulta = "SELECT ID FROM usuarios where LOGIN like '$usuarioAsignado'";
             $resultado = $conexion->query($consulta);
             $idUsuario = $resultado->fetch()[0];
 
-            $consulta = "INSERT INTO tarefas_asignadas (`idTarefa`, `idUsuario`) VALUES ('$idTarefa', '$idUsuario')";
+            $consulta = "INSERT INTO `usuarios_tarefa` (`ID_TAREFA`, `ID_USUARIO`) VALUES ('$idTarefa', '$idUsuario')";
             $resultado = $conexion->query($consulta);
-
-            echo '<p>Tarefa ' . $titulo . ' creada correctamente.</p>';
-            header('Refresh: 3; URL=paginaUsuario_1.php');
+            echo "<div class='row align-items-center'>";
+            echo "<div class='col'>";
+            echo '<p>Tarefa: '.$titulo.' creada correctamente.</p>';
+            echo '</div></div>';
+            header('Refresh: 3; URL=tarefasCreadas.php');
+        } elseif ($resultado) {
+            echo "<div class='row align-items-center'>";
+            echo "<div class='col'>";
+            echo '<p>Tarefa: '.$titulo.' creada correctamente.</p>';
+            echo '</div></div>';
+            header('Refresh: 3; URL=tarefasCreadas.php');
+        } else {
+            echo "<div class='row align-items-center'>";
+            echo "<div class='col'>";
+            echo '<p>Non se puido crear a tarefa: '.$titulo.' tenteo de novo.</p>';
+            echo '</div></div>';
+            header('Refresh: 3; URL=formularioCrearTarefa.php');
         }
     } catch (PDOException $e) {
-        echo 'Error conectando coa base de datos: ' . $e->getMessage();
+        echo 'Error conectando coa base de datos: '.$e->getMessage();
     }
 }
 
-$login = $_SESSION['login'];
-$titulo = $_POST['titulo'];
-$descripcion = $_POST['descripcion'];
-$usuarioAsignado = $_POST['usuario'];
-creaTarefaUsuario($login, $titulo, $descripcion, $usuarioAsignado);
+if (isset($_SESSION['login']) && isset($_POST['titulo']) && isset($_POST['descripcion']) && isset($_POST['usuario'])) {
+    $login = $_SESSION['login'];
+    $titulo = $_POST['titulo'];
+    $descripcion = $_POST['descripcion'];
+    $usuarioAsignado = $_POST['usuario'];
+    creaTarefaUsuario($login, $titulo, $descripcion, $usuarioAsignado);
+}

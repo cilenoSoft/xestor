@@ -5,8 +5,7 @@
         <meta charset="utf8">
         <title>XestorGal</title>
         <link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
-        <link rel="stylesheet" type="text/css" href="../css/xestor.css">
-        <link type="text/css" rel="stylesheet" href="../css/style2.css" >
+        <link rel="stylesheet" type="text/css" href="../css/xestor.css">        
         <script src="../js/jquery-1.9.1.min.js"></script>
         <script src="../js/jquery.validate.js"></script>
         <script src="../js/formulario.js"></script>
@@ -60,7 +59,7 @@
                     <div class="form-group col-sm-6 col-md-4">
                         <label for="selectUsuarios">Tipo de perfil:</label>
 
-                        <select name="usuario" class="form-control">
+                        <select name="rol" class="form-control">
                                     <option value="USER">USER</option>
                                     <option value="MASTER">MASTER</option>
                         </select>

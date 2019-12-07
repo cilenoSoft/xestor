@@ -1,6 +1,6 @@
 <?php
 
-include 'conexion.php';
+include 'funcions.php';
 include 'mailer.php';
 
 function generaPassAleatorio()
@@ -23,7 +23,7 @@ function cambiaContraseña($email, $login)
         $resultado = $conexion->query($consulta);
 
         $loginUsuario = $resultado->fetch()[0];
-     
+
         if ($loginUsuario == $login) {
             $pass = generaPassAleatorio();
 
@@ -32,15 +32,15 @@ function cambiaContraseña($email, $login)
                         hash('sha256', $pass, true)
                 ), PASSWORD_DEFAULT
         );
-          
+
             $consulta = "UPDATE usuarios SET pass = '$passEnc' WHERE email = '$email'";
 
             $resultado = $conexion->query($consulta);
-           
+
             if (enviaCorreoReseteoPassword($email, $pass)) {
                 echo 'Enviouse un correo co novo contrasinal.';
                 sleep(2);
-                header('Location: logueo.php');
+                header('Location: ../logueo.php');
             } else {
                 echo 'Non se puido enviar o correo, intenteo de novo.';
             }

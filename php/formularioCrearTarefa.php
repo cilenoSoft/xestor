@@ -1,11 +1,12 @@
 <?php
 session_start();
 
-include 'comprobaSesionIniciada.php';
+include 'funcions.php';
 comprobaSesion();
+
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="es">
 
     <head>
         <meta charset="utf-8">
@@ -18,20 +19,23 @@ comprobaSesion();
         <!-- Custom CSS -->
         <link rel="stylesheet" type="text/css" href="../css/xestor.css">
         <link type="text/css" rel="stylesheet" href="../css/style4.css" >
+
         <!-- Font Awesome JS -->
         <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
         <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
 
-        <!-- jQuery CDN - Slim version (=without AJAX) -->
-        <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-                integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
-        </script>
+        <!-- JS -->
+        <script src="../js/miJs.js"></script>
+
+        <!-- jQuery AJAX -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
         <!-- Popper.JS -->
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
                 integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous">
         </script>
         <!-- Bootstrap JS -->
-        <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
                 integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous">
         </script>
 
@@ -40,7 +44,7 @@ comprobaSesion();
     <body>
 
         <?php
-        include '../html/navBar.html';
+        include 'navBar.php';
         ?>
 
         <div>
@@ -51,49 +55,49 @@ comprobaSesion();
             </div>
         </div>
 
-        <form role="form" id="tarefa-form" action="creaTarefas.php" method="POST">       
+        <form id="tarefa-form" action="creaTarefas.php" method="POST">       
             <div class="form-body">
                 <div class="row">
                     <div class="form-group col-lg-5">
-                        <label for="exampleFormControlTextarea1">Titulo</label>
+                        <label>Titulo</label>
                         <input name="titulo" type="text" class="form-control">
-                        <span class="help-block" id="error"></span>
+                        <span class="help-block"></span>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="form-group col-lg-5">
-                        <label for="selectUsuarios">Asignar a usuario</label>
+                        <label id="selectUsuarios">Asignar a usuario</label>
 
                         <select name="usuario" class="form-control">
 
-                            <?php
-                            include 'conexion.php';
+                            <?php                          
                             $conexion = conexion();
                             $equipo = $_SESSION['equipo'];
-                            $consulta = "SELECT * FROM usuarios where idEquipo like '$equipo'";
+                            $consulta = "SELECT * FROM usuarios where ID_EQUIPO like '$equipo'";
                             $resultado = $conexion->query($consulta);
 
                             if ($resultado->rowCount() == 0) {
                                 echo 'No se ha encontrado usuarios';
+                                echo '<option>NA</option>';
                             } else {
                                 $datos = $resultado->fetchAll(PDO::FETCH_ASSOC);
-
+                                echo '<option selected>NA</option>';
                                 foreach ($datos as $fila) {
-                                    $usuario = $fila['login'];
+                                    $usuario = $fila['LOGIN'];
                                     echo "<option>$usuario</option>";
                                 }
                             }
                             ?>
                         </select>
 
-                        <span class="help-block" id="error"></span>
+                        <span class="help-block"></span>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="form-group col-lg-5">
-                        <label for="exampleFormControlTextarea1">Descripción</label>
+                        <label>Descripción</label>
                         <textarea name='descripcion' class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                     </div>
                 </div>
@@ -107,14 +111,13 @@ comprobaSesion();
                 </div>
             </div>
         </form>
-
-        <script type="text/javascript">
-            $(document).ready(function () {
-                $('#sidebarCollapse').on('click', function () {
-                    $('#sidebar').toggleClass('active');
-                });
-            });
-        </script>
-    </body>
+        <!-- Cierre NavBar -->
+    </div>  
+</div>
+<!-- Fin Cierre NavBar -->
+<script>
+    sideVarCollapse()
+</script>
+</body>
 
 </html>

@@ -9,13 +9,15 @@ if ((($_FILES['file']['type'] == 'image/gif') || ($_FILES['file']['type'] == 'im
         echo 'Return Code: '.$_FILES['file']['error'].'';
     } else {
         //Mostra a información do arquivo subido
-        echo 'Upload: '.$_FILES['file']['name'].'';
+        echo 'Upload: '.$_FILES['file']['name'].$_FILES['file']['type'];
 
         //Verifica se o arquivo existe
-        $ruta = '../../imgUsuarios/'; //ruta carpeta donde queremos copiar a imaxe
-
+        $ruta = '../imgUsuarios/'; //ruta carpeta donde queremos copiar a imaxe
         $login = $_SESSION['login'];
+
         $extension = '.'.str_replace('image/', '', $_FILES['file']['type']);
+
+        //unlink($ruta.$login.'.png');
 
         //copiamos a imaxe sobreescribindo no caso de que xa exista unha imaxe co mesmo nome de usuario
         move_uploaded_file($_FILES['file']['tmp_name'], $ruta.$login.$extension);
@@ -26,9 +28,9 @@ if ((($_FILES['file']['type'] == 'image/gif') || ($_FILES['file']['type'] == 'im
 
         // mostra a imaxe subida
         echo "<img src='$nombreArchivo'  width='200' />";
-
+        sleep(0.5);
         //volve a páxina anterior
-        header('Refresh: 2; URL=conta.php');
+       // header('Refresh: 2; URL=conta.php');
     }
 } else {
     echo '<br>';

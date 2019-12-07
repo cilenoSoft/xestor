@@ -1,43 +1,6 @@
 <?php
 
-include 'conexion.php';
-
-function compruebaContrasena($pass, $passBD, $user, $idEquipo, $idUsuario)
-{
-    if (password_verify(
-                    base64_encode(
-                            hash('sha256', $pass, true)
-                    ), $passBD
-            )) {
-        logearUsuario($user, $idEquipo, $idUsuario);
-        header('Location: tarefasAsignadas.php');
-    } else {
-        header('Location: logueo.php');
-    }
-}
-
-function obtenerEmail($pass, $passBD, $user, $idEquipo, $idUsuario)
-{
-    if (password_verify(
-                    base64_encode(
-                            hash('sha256', $pass, true)
-                    ), $passBD
-            )) {
-        logearUsuario($user, $idEquipo, $idUsuario);
-        header('Location: tarefasAsignadas.php');
-    } else {
-        header('Location: logueo.php');
-    }
-}
-
-function logearUsuario($user, $idEquipo, $idUsuario)
-{
-    session_start();
-    session_regenerate_id();
-    $_SESSION['login'] = $user;
-    $_SESSION['equipo'] = $idEquipo;
-    $_SESSION['idUsuario'] = $idUsuario;
-}
+include 'funcions.php';
 
 try {
     $contraseñaCorrecta = false;
@@ -47,7 +10,7 @@ try {
 
     $conexion = conexion();
 
-    $consulta = "SELECT * FROM usuarios where login like '$login'";
+    $consulta = "SELECT * FROM usuarios where LOGIN like '$login'";
 
     $resultado = $conexion->query($consulta);
 
@@ -57,9 +20,9 @@ try {
         $datos = $resultado->fetchAll(PDO::FETCH_ASSOC);
 
         foreach ($datos as $fila) {
-            $passBD = $fila['pass'];
-            $equipo = $fila['idEquipo'];
-            $idUsuario = $fila['id'];
+            $passBD = $fila['PASS'];
+            $equipo = $fila['ID_EQUIPO'];
+            $idUsuario = $fila['ID'];
             compruebaContrasena($pass, $passBD, $login, $equipo, $idUsuario);
         }
     }

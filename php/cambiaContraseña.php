@@ -1,6 +1,6 @@
 <?php
 
-include 'conexion.php';
+include 'funcions.php';
 include 'mailer.php';
 
 function generaPassAleatorio()

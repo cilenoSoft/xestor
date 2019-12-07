@@ -5,8 +5,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
-        <link rel="stylesheet" type="text/css" href="../css/xestor.css">
-        <link type="text/css" rel="stylesheet" href="../css/style2.css" >
+        <link rel="stylesheet" type="text/css" href="../css/xestor.css">        
         <script src="../js/jquery-1.9.1.min.js"></script>
         <script src="../js/jquery.validate.js"></script>
         <script src="../js/formulario.js"></script>
