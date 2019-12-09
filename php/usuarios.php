@@ -27,7 +27,7 @@ try {
         }
     }
 } catch (PDOException $e) {
-    echo 'Error conectando coa base de datos: '.$e->getMessage();
+    echo 'Error conectando coa base de datos: ' . $e->getMessage();
 }
 ?>
 

@@ -42,11 +42,13 @@ comprobaSesion();
     </head>
     <body>
 
+<div id= "alerta"></div>
+
         <?php
-        include 'navBar.php';        
+        include 'navBar.php';
         $nombreEquipo = obtenNombreEquipo($_SESSION['equipo']);
-        echo'<h1>' . $nombreEquipo . '</h1>';
-        echo "<p></p>";
+        echo'<h1>'.$nombreEquipo.'</h1>';
+        echo '<p></p>';
         $login = $_SESSION['login'];
         obtenUsuariosEquipo($login);
         ?>
@@ -64,24 +66,24 @@ comprobaSesion();
                     if ($resultado->rowCount() == 0) {
                         echo "<div class='row'>";
                         echo "<div class='col-3'>";
-                        echo "<label>Engadir Membro:</label>";
+                        echo '<label>Engadir Membro:</label>';
                         echo "<select name='usuario_1' id='usuario1' class='form-control'>";
-                        echo "<option>Non se atoparon usuarios sen equipo.</option>";
+                        echo '<option>Non se atoparon usuarios sen equipo.</option>';
                         echo '</select>';
                         echo "<span class='help-block' id='error'></span>";
-                        echo "</div>";
+                        echo '</div>';
                         echo '</div>';
 
                         echo "<div class='form-footer'>";
                         echo "<button type='submit' class='btn btn-info' disabled>";
-                        echo "<span class='glyphicon glyphicon-log-in'></span> Engadir membro";
+                        echo 'Engadir membro';
                         echo '</button>';
                         echo '</div>';
                     } else {
                         $datos = $resultado->fetchAll(PDO::FETCH_ASSOC);
                         echo "<div class='row'>";
                         echo "<div class='col-3'>";
-                        echo "<label>Engadir Membro:</label>";
+                        echo '<label>Engadir Membro:</label>';
                         echo "<select name='usuario_1' id='usuario1' class='form-control'>";
 
                         foreach ($datos as $fila) {
@@ -90,12 +92,11 @@ comprobaSesion();
                         }
                         echo '</select>';
                         echo "<span class='help-block' id='error'></span>";
-                        echo "</div>";
                         echo '</div>';
-
+                        echo '</div>';
                         echo "<div class='form-footer'>";
                         echo "<button type='submit' class='btn btn-info'>";
-                        echo "<span class='glyphicon glyphicon-log-in'></span> Engadir membro";
+                        echo 'Engadir membro';
                         echo '</button>';
                         echo '</div>';
                     }
@@ -113,6 +114,7 @@ comprobaSesion();
 
 <script>
     sideVarCollapse();
+    modalAsignarTarefas();
 </script>
 </body>
 

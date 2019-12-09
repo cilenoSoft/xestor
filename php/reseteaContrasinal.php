@@ -13,10 +13,10 @@ function generaPassAleatorio() {
 function cambiaContraseña($email, $login) {
     $conexion = conexion();
 
-    $consulta = "SELECT login FROM usuarios where email like '$email'";
+    $consulta = "SELECT LOGIN FROM usuarios WHERE EMAIL LIKE '$email'";
     $resultado = $conexion->query($consulta);
     if ($resultado->rowCount() == 0) {
-        echo 'Non se encontrou ningún usuario co correo indicado.';
+        echo 'Nos se atopou ningun usuario co correo indicado.';
     } else {
         $resultado = $conexion->query($consulta);
 
@@ -36,11 +36,12 @@ function cambiaContraseña($email, $login) {
             $resultado = $conexion->query($consulta);
 
             if (enviaCorreoReseteoPassword($email, $pass)) {
-                echo 'Enviouse un correo electrónico co novo contrasinal.';
-                sleep(2);
-                header('Location: logueo.php');
+                echo '<script type="text/javascript">
+                    alert("Enviouse un correo co novo contrasinal.");
+                    </script>';
+                header('Location: ../logueo.php');
             } else {
-                echo 'Nos se puido enviar o correo.';
+                echo 'Non se puido enviar o correo, intenteo de novo.';
             }
         } else {
             echo 'Login incorrecto.';
