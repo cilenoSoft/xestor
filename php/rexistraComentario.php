@@ -13,7 +13,7 @@ function insertaComentario($idTarefa, $idUsuario, $comentario, $equipo, $estado,
     $comentario = trim($comentario, ' ');
     $equipo = trim($equipo, ' ');
     $comentarioVacio = false;
-    echo $fechaActual;
+
     if ($comentario != '') {
         if ($equipo != '') {
             $consulta = "INSERT INTO `comentarios_tarefa` (`ID_TAREFA`, `LOGIN_USUARIO`,`COMENTARIO`,`ID_EQUIPO`,`FECHA`,`ESTADO`) VALUES ('$idTarefa', '$login','$comentario','$equipo','$fechaActual','$estado')";

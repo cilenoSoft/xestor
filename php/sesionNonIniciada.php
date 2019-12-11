@@ -23,7 +23,7 @@
 <?php
 
 echo '<p>Debe iniciar sesión para continuar</p>';
-header('Refresh: 3; URL=../logueo.php');
+header('Refresh: 3; URL=../index.html');
 
 ?>
 </body>

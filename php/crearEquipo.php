@@ -3,9 +3,9 @@
 session_start();
 include 'funcions.php';
 
-function creaEquipoUsuario($login, $nombre, $listaUsuariosEquipo)
-{
+function creaEquipoUsuario($login, $nombre, $listaUsuariosEquipo) {
     try {
+        //establecemos a conexión
         $conexion = conexion();
         $i = 1;
         $consulta = "SELECT ID FROM usuarios where LOGIN like '$login'";
@@ -44,7 +44,7 @@ function creaEquipoUsuario($login, $nombre, $listaUsuariosEquipo)
 
         header('Refresh: 3; URL=paxinaEquipo.php');
     } catch (PDOException $e) {
-        echo 'Error conectando coa base de datos: '.$e->getMessage();
+        echo 'Error conectando coa base de datos: ' . $e->getMessage();
     }
 }
 
@@ -52,7 +52,7 @@ $login = $_SESSION['login'];
 $nombre = $_POST['nombreEquipo'];
 
 for ($i = 1; $i <= 10; ++$i) {
-    $usuario = 'usuario_'.$i;
+    $usuario = 'usuario_' . $i;
     if (!isset($_POST[$usuario])) {
         break;
     }
@@ -62,7 +62,7 @@ for ($i = 1; $i <= 10; ++$i) {
 }
 
 /*
-$usuarioAsignado = $_POST['usuario'];
-*/
+  $usuarioAsignado = $_POST['usuario'];
+ */
 
 creaEquipoUsuario($login, $nombre, $listaUsuariosEquipo);

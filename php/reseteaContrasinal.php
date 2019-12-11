@@ -3,14 +3,16 @@
 include 'funcions.php';
 include 'mailer.php';
 
-function generaPassAleatorio() {
+function generaPassAleatorio()
+{
     $logitud = 8;
     $psswd = substr(md5(microtime()), 1, $logitud);
 
     return $psswd;
 }
 
-function cambiaContraseña($email, $login) {
+function cambiaContraseña($email, $login)
+{
     $conexion = conexion();
 
     $consulta = "SELECT LOGIN FROM usuarios WHERE EMAIL LIKE '$email'";
@@ -39,7 +41,7 @@ function cambiaContraseña($email, $login) {
                 echo '<script type="text/javascript">
                     alert("Enviouse un correo co novo contrasinal.");
                     </script>';
-                header('Location: ../logueo.php');
+                header('Location: ../index.html');
             } else {
                 echo 'Non se puido enviar o correo, intenteo de novo.';
             }

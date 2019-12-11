@@ -5,7 +5,8 @@ include 'funcions.php';
 $conexion = conexion();
 $idUsuario = $_POST['idUsuario'];
 
-$consulta = "SELECT * FROM tarefas WHERE ESTADO = 'SIN ASIGNAR'";
+$consulta = "SELECT * FROM `tarefas` WHERE `ID` IN (SELECT ID_TAREFA FROM `usuarios_tarefa` WHERE `ID_USUARIO` = '$idUsuario')";
+
 $resultado = $conexion->query($consulta);
 
 if ($resultado->rowCount() == 0) {
@@ -24,11 +25,11 @@ if ($resultado->rowCount() == 0) {
         echo '<p>Estado: '.$estado.'</p>';
         echo "<p>$descripcion</p>";
         echo "<input type = 'hidden' id='userTar' value = '$idUsuario'>";
-        echo "<button class='btn btn-primary asignaTarefa' value='$idTarefa'>Asignar</button>";
+        echo "<button class='btn btn-primary desAsignaTarefa' value='$idTarefa'>Desasignar</button>";
         echo "<div class='line'></div>";
     }
 }
 
 echo '<script>';
- echo 'modalAsignarTarefas()';
+ echo 'modalTarefasAsignadas()';
 echo '</script>';

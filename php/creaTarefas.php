@@ -3,8 +3,7 @@
 session_start();
 include 'funcions.php';
 
-function creaTarefaUsuario($login, $titulo, $descripcion, $usuarioAsignado)
-{
+function creaTarefaUsuario($login, $titulo, $descripcion, $usuarioAsignado) {
     try {
         $conexion = conexion();
 
@@ -34,33 +33,25 @@ function creaTarefaUsuario($login, $titulo, $descripcion, $usuarioAsignado)
 
             $consulta = "INSERT INTO `usuarios_tarefa` (`ID_TAREFA`, `ID_USUARIO`) VALUES ('$idTarefa', '$idUsuario')";
             $resultado = $conexion->query($consulta);
-            echo "<div class='row align-items-center'>";
-            echo "<div class='col'>";
-            echo '<p>Tarefa: '.$titulo.' creada correctamente.</p>';
-            echo '</div></div>';
-            header('Refresh: 3; URL=tarefasCreadas.php');
+            echo "Tarefa creada e asignada correctamente.";
         } elseif ($resultado) {
-            echo "<div class='row align-items-center'>";
-            echo "<div class='col'>";
-            echo '<p>Tarefa: '.$titulo.' creada correctamente.</p>';
-            echo '</div></div>';
-            header('Refresh: 3; URL=tarefasCreadas.php');
+            echo "Tarefa creada correctamente.";
         } else {
-            echo "<div class='row align-items-center'>";
-            echo "<div class='col'>";
-            echo '<p>Non se puido crear a tarefa: '.$titulo.' tenteo de novo.</p>';
-            echo '</div></div>';
-            header('Refresh: 3; URL=formularioCrearTarefa.php');
+            echo "Error.";
         }
     } catch (PDOException $e) {
-        echo 'Error conectando coa base de datos: '.$e->getMessage();
+        echo 'Error conectando coa base de datos: ' . $e->getMessage();
     }
 }
 
-if (isset($_SESSION['login']) && isset($_POST['titulo']) && isset($_POST['descripcion']) && isset($_POST['usuario'])) {
+$login = $_POST['user'];
+
+if (isset($_SESSION['login']) && isset($_POST['tituloTarefa']) && isset($_POST['descripcionTarefa']) && isset($_POST['user'])) {
     $login = $_SESSION['login'];
-    $titulo = $_POST['titulo'];
-    $descripcion = $_POST['descripcion'];
-    $usuarioAsignado = $_POST['usuario'];
+    $titulo = $_POST['tituloTarefa'];
+    $descripcion = $_POST['descripcionTarefa'];
+    $usuarioAsignado = $_POST['user'];
     creaTarefaUsuario($login, $titulo, $descripcion, $usuarioAsignado);
+} else {
+    echo "Error, campos vacios.";
 }

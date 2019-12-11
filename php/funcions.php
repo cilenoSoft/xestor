@@ -26,6 +26,29 @@ function comprobaSesion()
     if (!isset($_SESSION['login'])) {
         header('Location: sesionNonIniciada.php');
     }
+
+    if (isset($_SESSION['tiempo'])) {
+        //Tiempo en segundos para dar vida a la sesión.
+        $inactivo = 600; //10min en este caso.
+
+        //Calculamos tiempo de vida inactivo.
+        $vida_session = time() - $_SESSION['tiempo'];
+
+        //Compraración para redirigir página, si la vida de sesión sea mayor a el tiempo insertado en inactivo.
+        if ($vida_session > $inactivo) {
+            //Removemos sesión.
+            session_unset();
+            //Destruimos sesión.
+            session_destroy();
+            //Redirigimos pagina.
+            header('Location: sesionNonIniciada.php');
+
+            exit();
+        }
+    } else {
+        //Activamos sesion tiempo.
+        $_SESSION['tiempo'] = time();
+    }
 }
 
 /**
@@ -442,22 +465,40 @@ function obtenUsuariosEquipo($login)
 
             echo '<div class="col-lg-4">';
 
+            //imaxe do usuario
             $loginImg = 'img_'.$resultado['LOGIN'];
             echo "<a class='lightbox' href='../imgUsuarios/".$resultado['LOGIN']."'>";
             echo "<img src='../imgUsuarios/".$resultado['LOGIN']."' height='150' alt='$loginImg'/>";
             echo '</a>';
 
             echo '<blockquote class="blockquote_User">';
+            //login usuario
             $login = $resultado['LOGIN'];
             echo strtoupper($login);
+
             echo '<small>';
+            //correo
             echo '<br/> <i class="fas fa-envelope"></i>';
             echo $resultado['EMAIL'];
+            //fecha rexistro
             echo '<br/> <i class="fas fa-calendar"></i>';
             $FECHA = $resultado['FECHA_REXISTRO'];
             echo "$FECHA";
 
             echo '</small>';
+
+            echo '<p></p>';
+            //mostra as tarefas en estado SIN ASIGNAR para selecxionar unha e asignala o membro do equipo
+            echo "<button class='btn btn-primary verTarefas btn-asinTar' data-toggle='modal' data-target='#myModal' value='$id[0]'>Asignar tarefa</button>";
+            echo '</button>';
+            //modal no que se mostran as tarefas
+            include '../html/asignarTarefas.html';
+
+            //mostra as tarefas en estado SIN ASIGNAR para selecxionar unha e asignala o membro do equipo
+            echo "<button class='btn btn-primary verTarefasAsignadas btn-asinTar' data-toggle='modal' data-target='#myModal' value='$id[0]'>Ver Tarefas Asignadas</button>";
+            echo '</button>';
+            //modal no que se mostran as tarefas
+            include '../html/tarefasAsignadas.html';
             echo '</blockquote>';
 
             echo '<p></p>';
@@ -516,6 +557,7 @@ function logearUsuario($user, $idEquipo, $idUsuario)
     $_SESSION['login'] = $user;
     $_SESSION['equipo'] = $idEquipo;
     $_SESSION['idUsuario'] = $idUsuario;
+    $_SESSION['tiempo'] = time();
 }
 
 function obtenerEmail($login)

@@ -12,14 +12,14 @@ $equipo = $_SESSION['equipo'];
 
 $fecha = 'Y-m-d H:i:s';
 $fechaActual = date($fecha);
-$consulta = "UPDATE `tarefas` set `ESTADO` = 'PENDIENTE', `USUARIO_ULTIMO_ESTADO` = '$userXestor' WHERE `ID` like '$tarefa'";
+$consulta = "UPDATE `tarefas` SET `ESTADO` = 'SIN ASIGNAR', `USUARIO_ULTIMO_ESTADO` = '$userXestor' WHERE `ID` like '$tarefa'";
 $conexion = conexion();
 $resultado = $conexion->query($consulta);
 
-$consulta = "INSERT INTO `usuarios_tarefa` (`ID_TAREFA`, `ID_USUARIO`) VALUES ('$tarefa','$idUsuarioAsignar')";
+$consulta = "DELETE FROM `usuarios_tarefa` WHERE `ID_TAREFA` = '$tarefa' AND `ID_USUARIO` = '$idUsuarioAsignar'";
 $conexion = conexion();
 $resultado = $conexion->query($consulta);
 
 echo '<script type="text/javascript">
-alert("Tarefa '.$tarefa.' asignada ó usuario '.$idUsuarioAsignar.'.");
+alert("Tarefa '.$tarefa.' desasignada do usuario '.$idUsuarioAsignar.'.");
 </script>';

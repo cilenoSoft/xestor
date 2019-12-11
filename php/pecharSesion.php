@@ -2,4 +2,4 @@
 
 session_start();
 session_destroy();
-header('Refresh: 2; URL=../logueo.php');
+header('Refresh: 2; URL=../index.html');
