@@ -54,7 +54,7 @@ comprobaSesion();
                     <label class="control-label" for="inputName">Asunto :</label>
                     <div class='row'>
                         <div class='col-lg-6'>
-                            <input type="text" class="form-control" name="asunto" placeholder="Asunto">
+                            <input type="text" class="form-control" name="asunto" placeholder="Login">
                         </div>
                         <span class="help-block" id="error"></span>
                     </div>

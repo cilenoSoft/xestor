@@ -61,10 +61,8 @@ session_start();
                         </div>
 
                         <div id="pieLogueo" class="row">
-                            <!-- Formulario para o reseteo de contrasinal -->
-                            <div class="col-md-7 pieLogueo"><a href="html/formularioReseteo.html">Contrasinal olvidado</a></div>
-                            <!-- Formulario para o rexistro de usuarios -->
-                            <div class="col-md-5 pieLogueo"><a href="html/formularioRexistro.html">Rexístrate</a></div>
+                            <div class="col-md-7 pieLogueo"><a href="php/formularioReseteo.php">Contrasinal olvidado</a></div>
+                            <div class="col-md-5 pieLogueo"><a href="php/formularioRegistro.php">Rexístrate</a></div>
                         </div>
 
                     </form>

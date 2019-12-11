@@ -55,14 +55,12 @@ comprobaSesion();
             </div>
         </div>
 
-        <div id= "alerta"><div> 
-
-        <form id="tarefa-form" onsubmit="return false" action="return false">   
+        <form id="tarefa-form" action="creaTarefas.php" method="POST">       
             <div class="form-body">
                 <div class="row">
                     <div class="form-group col-lg-5">
                         <label>Titulo</label>
-                        <input name="titulo" id= "titulo" type="text" class="form-control">
+                        <input name="titulo" type="text" class="form-control">
                         <span class="help-block"></span>
                     </div>
                 </div>
@@ -71,9 +69,9 @@ comprobaSesion();
                     <div class="form-group col-lg-5">
                         <label id="selectUsuarios">Asignar a usuario</label>
 
-                        <select name="usuario" id ="usuario" class="form-control">
+                        <select name="usuario" class="form-control">
 
-                            <?php
+                            <?php                          
                             $conexion = conexion();
                             $equipo = $_SESSION['equipo'];
                             $consulta = "SELECT * FROM usuarios where ID_EQUIPO like '$equipo'";
@@ -100,13 +98,15 @@ comprobaSesion();
                 <div class="row">
                     <div class="form-group col-lg-5">
                         <label>Descripción</label>
-                        <textarea name='descripcion' id='descripcion' class="form-control" rows="3"></textarea>
+                        <textarea name='descripcion' class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="form-footer col-lg-5">
-                        <button class="btn btn-info crearTarefa" onclick="creaTarefa();"> Crear Tarefa </button>
+                        <button type="submit" class="btn btn-info">
+                            <span class="glyphicon glyphicon-log-in"></span> Crear Tarefa
+                        </button>
                     </div>
                 </div>
             </div>

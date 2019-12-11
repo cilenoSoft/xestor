@@ -84,7 +84,7 @@ function enviaCorreoContacto($email, $login, $asunto, $contido)
         // Content
         $mail->isHTML(true); // Set email format to HTML
         $mail->Subject = $asunto;
-        $mail->Body = '<h2>From : '.$login."</h2><p>".$contido."</p>";
+        $mail->Body = 'From : '.$login."\n".$contido;
         $mail->AltBody = 'From : '.$login."\n".$contido;
 
         if ($mail->send()) {

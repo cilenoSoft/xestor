@@ -26,29 +26,6 @@ function comprobaSesion()
     if (!isset($_SESSION['login'])) {
         header('Location: sesionNonIniciada.php');
     }
-
-    if (isset($_SESSION['tiempo'])) {
-        //Tiempo en segundos para dar vida a la sesión.
-        $inactivo = 600; //10min en este caso.
-
-        //Calculamos tiempo de vida inactivo.
-        $vida_session = time() - $_SESSION['tiempo'];
-
-        //Compraración para redirigir página, si la vida de sesión sea mayor a el tiempo insertado en inactivo.
-        if ($vida_session > $inactivo) {
-            //Removemos sesión.
-            session_unset();
-            //Destruimos sesión.
-            session_destroy();
-            //Redirigimos pagina.
-            header('Location: sesionNonIniciada.php');
-
-            exit();
-        }
-    } else {
-        //Activamos sesion tiempo.
-        $_SESSION['tiempo'] = time();
-    }
 }
 
 /**
@@ -471,26 +448,16 @@ function obtenUsuariosEquipo($login)
             echo '</a>';
 
             echo '<blockquote class="blockquote_User">';
-
             $login = $resultado['LOGIN'];
             echo strtoupper($login);
-
             echo '<small>';
-
             echo '<br/> <i class="fas fa-envelope"></i>';
             echo $resultado['EMAIL'];
-
             echo '<br/> <i class="fas fa-calendar"></i>';
             $FECHA = $resultado['FECHA_REXISTRO'];
             echo "$FECHA";
 
             echo '</small>';
-
-            echo '<p></p>';
-
-            echo "<button class='btn btn-primary verTarefas btn-asinTar' data-toggle='modal' data-target='#myModal' value='$id[0]'>Asignar tarefa</button>";
-            echo '</button>';
-            include '../html/asignarTarefas.html';
             echo '</blockquote>';
 
             echo '<p></p>';
@@ -549,7 +516,6 @@ function logearUsuario($user, $idEquipo, $idUsuario)
     $_SESSION['login'] = $user;
     $_SESSION['equipo'] = $idEquipo;
     $_SESSION['idUsuario'] = $idUsuario;
-    $_SESSION['tiempo'] = time();
 }
 
 function obtenerEmail($login)

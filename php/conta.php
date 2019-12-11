@@ -50,7 +50,7 @@ comprobaSesion();
             <div class="row">
                 <div class="col-lg-5">
                     <?php
-                    echo '<h1>'.strtoupper($login).'</h1>';
+                    echo '<h1>' . strtoupper($login) . '</h1>';
                     ?>
                 </div>
             </div>
@@ -58,7 +58,7 @@ comprobaSesion();
             <div class="row">
                 <div class="col-xl-5 col-lg-12 col-md-12">
                     <?php
-                    $ruta = '../imgUsuarios/'.$login;
+                    $ruta = '../imgUsuarios/' . $login;
                     echo "<img src='$ruta' class='img-rounded img-responsive' alt='$loginImg' width='450'/>";
                     ?>
                 </div>
@@ -66,7 +66,7 @@ comprobaSesion();
                     <blockquote class="blockquote_User">
                         <?php
                         $login = $_SESSION['login'];
-                        echo '<p>'.strtoupper($login).'</p>';
+                        echo '<p>' . strtoupper($login) . '</p>';
                         ?> 
                     </blockquote>
                     <p> <i class="fas fa-envelope"></i> 
@@ -82,7 +82,7 @@ comprobaSesion();
                         ?>
                     </p>
                     <small>                                   
-                        <a class ="enlace" href="../html/formularioCambiaPass.html">Mudar Contrasinal</a>                           
+                        <a class ="enlace" href="formularioCambiaPass.php">Mudar Contrasinal</a>                           
                     </small>
                 </div>
                 <div class="col-lg-2">

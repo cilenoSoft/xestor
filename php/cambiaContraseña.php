@@ -3,14 +3,16 @@
 include 'funcions.php';
 include 'mailer.php';
 
-function generaPassAleatorio() {
+function generaPassAleatorio()
+{
     $logitud = 8;
     $psswd = substr(md5(microtime()), 1, $logitud);
 
     return $psswd;
 }
 
-function cambiaContraseña($email, $login) {
+function cambiaContraseña($email, $login)
+{
     $conexion = conexion();
 
     $consulta = "SELECT login FROM usuarios where email like '$email'";
